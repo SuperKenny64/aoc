@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec  2 10:13:48 2023
+
+"""
+
+
+urlStr = "C:/Users/input"
+data = open(urlStr, "r")
+maxrgb = [12,14,13]
+colors = ["red","blue","green"]
+output = 0
+n = 1
+
+def checkb(y):
+    #det = True
+    score = [0,0,0]
+    c = y.split(",")
+    for it in range(len(c)):
+        temp = 0
+        for col in colors:
+            if c[it] != "":
+                if c[it].count(col) != 0:
+                    score[temp] = int(c[it][:-len(col)-1])
+        
+            temp+= 1
+    # for each in range(len(colors)):
+    #     if score[each] > maxrgb[each]:
+    #         #print("hit")
+    #         det = False
+    #         return False
+    #print(score)
+    #return det
+    return(score)
+        
+
+
+for x in data:
+    start_l = x.find(":")
+    x = x[start_l+1:]
+    y = x.split(";")
+    games = []
+    temp = [1,1,1]
+    for each in range(len(y)):
+        games.append(checkb(y[each]))
+    for each in range(len(games)):
+        for c in range(len(colors)):
+            if games[each][c] > temp[c]:
+                temp[c] = games[each][c]
+    output += temp[0]*temp[1]*temp[2] 
+    print(temp, n)   
+    
+        # if checkb(y[each]) == False:
+        #     output -= n
+        #     #print("abort",n)
+        #     #n += 0
+        #     break
+    #output += n
+    print(output,n)    
+    n += 1
+
+
